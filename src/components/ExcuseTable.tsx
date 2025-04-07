@@ -1,4 +1,4 @@
-import { Badge, Button, Modal, Table } from "@mantine/core"
+import { Badge, Button, Modal, Table, Textarea } from "@mantine/core"
 import { Excuse } from "../lib/Excuse"
 import { useState } from "react"
 
@@ -14,9 +14,18 @@ export function ExcuseTable({ excuses }: { excuses: Excuse[] }) {
     return (
         <Table>
             <Table.Thead>
-            <Modal opened={isModalOpen} onClose={() => setIsModalOpen(false)}>
-                {modalText}
-            </Modal>
+                <Modal
+                    opened={isModalOpen}
+                    title={<h2 className="font-semibold">Content</h2>}
+                    onClose={() => setIsModalOpen(false)}
+                >
+                    <div className="flex flex-col gap-2">
+                        <p className="text-gray-400 text-sm">
+                            Use this to copy and paste the text
+                        </p>
+                        <Textarea>{modalText}</Textarea>
+                    </div>
+                </Modal>
                 <Table.Tr>
                     <Table.Th>Name</Table.Th>
                     <Table.Th>Reason</Table.Th>
@@ -42,10 +51,16 @@ export function ExcuseTable({ excuses }: { excuses: Excuse[] }) {
                             )}
                         </Table.Td>
                         <Table.Td>
-                            <Button onClick={() => openModalWithText(v.Comment)}>Show</Button>
+                            <Button
+                                onClick={() => openModalWithText(v.Comment)}
+                            >
+                                Show
+                            </Button>
                         </Table.Td>
                         <Table.Td>
-                            <Button onClick={() => openModalWithText(v.Text)}>Show</Button>
+                            <Button onClick={() => openModalWithText(v.Text)}>
+                                Show
+                            </Button>
                         </Table.Td>
                     </Table.Tr>
                 ))}
