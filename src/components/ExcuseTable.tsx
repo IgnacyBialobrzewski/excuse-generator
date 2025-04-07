@@ -1,10 +1,22 @@
-import { Badge, Button, Table } from "@mantine/core"
+import { Badge, Button, Modal, Table } from "@mantine/core"
 import { Excuse } from "../lib/Excuse"
+import { useState } from "react"
 
 export function ExcuseTable({ excuses }: { excuses: Excuse[] }) {
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [modalText, setModalText] = useState("")
+
+    const openModalWithText = (text: string) => {
+        setIsModalOpen(true)
+        setModalText(text)
+    }
+
     return (
         <Table>
             <Table.Thead>
+            <Modal opened={isModalOpen} onClose={() => setIsModalOpen(false)}>
+                {modalText}
+            </Modal>
                 <Table.Tr>
                     <Table.Th>Name</Table.Th>
                     <Table.Th>Reason</Table.Th>
@@ -30,10 +42,10 @@ export function ExcuseTable({ excuses }: { excuses: Excuse[] }) {
                             )}
                         </Table.Td>
                         <Table.Td>
-                            <Button>Show</Button>
+                            <Button onClick={() => openModalWithText(v.Comment)}>Show</Button>
                         </Table.Td>
                         <Table.Td>
-                            <Button>Show</Button>
+                            <Button onClick={() => openModalWithText(v.Text)}>Show</Button>
                         </Table.Td>
                     </Table.Tr>
                 ))}
