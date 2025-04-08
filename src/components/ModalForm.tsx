@@ -11,6 +11,7 @@ import {
 import { DateInput } from "@mantine/dates"
 import { Excuse } from "../lib/Excuse"
 import { useState } from "react"
+import { generateExcuse } from "../lib/generator"
 
 type Props = {
     isOpen: boolean
@@ -34,7 +35,6 @@ export function ModalForm({ isOpen, close, onSubmit }: Props) {
         <Modal
             opened={isOpen}
             onClose={close}
-            title={<h2 className="font-bold">New Excuse</h2>}
             centered
             onSubmit={alert}
         >
@@ -108,7 +108,10 @@ export function ModalForm({ isOpen, close, onSubmit }: Props) {
                 />
                 <Button onClick={() => {
                     close()
-                    onSubmit(formData)
+                    onSubmit({
+                        ...formData,
+                        Text: generateExcuse(formData)
+                    })
                 }}>Generate</Button>
             </div>
         </Modal>
