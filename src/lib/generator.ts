@@ -1,25 +1,16 @@
-import { Excuse } from "./Excuse";
-import { keywords } from "./keywords";
-
-function getRandomArbitrary(min: number, max: number) {
-    return Math.floor(Math.random() * (max - min) + min)
-}
-
-function getRandomArrItem<T>(arr: T[]) {
-    return arr[getRandomArbitrary(0, arr.length-1)]
-}
-
-console.log(getRandomArbitrary(1, 10))
+import { Excuse } from "./Excuse"
+import { keywords } from "./keywords"
+import { getRandomArrItem, toUpperCaseNthChar } from "./util"
 
 export function generateExcuse(excuse: Excuse) {
     let sentence: string[] = []
 
-    sentence.push(getRandomArrItem(keywords.greetings))
+    sentence.push(toUpperCaseNthChar(getRandomArrItem(keywords.greetings), 0))
     sentence.push(excuse.Name)
     sentence.push(getRandomArrItem(keywords.apologies))
     sentence.push(excuse.Reason)
     sentence.push(".")
-    sentence.push(getRandomArrItem(keywords.nouns))
+    sentence.push(toUpperCaseNthChar(getRandomArrItem(keywords.nouns), 0))
 
     const verb = getRandomArrItem(keywords.verbs)
     sentence.push(verb.text)

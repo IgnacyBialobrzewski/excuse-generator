@@ -5,15 +5,33 @@ import { ExcuseTable } from "./components/ExcuseTable"
 import { Excuse } from "./lib/Excuse"
 import "./App.css"
 
+const LOCAL_STORAGE_DATA_KEY = "excuse_generator_data"
+
 export default function App() {
-    const [excuses, setExcuses] = useState<Excuse[]>([])
+    const [excuses, setExcuses] = useState<Excuse[]>(() => {
+        const data = localStorage.getItem(LOCAL_STORAGE_DATA_KEY)
+
+        if (data) return JSON.parse(data) as Excuse[]
+
+        localStorage.setItem(LOCAL_STORAGE_DATA_KEY, JSON.stringify([]))
+
+        return []
+    })
     const [isModalOpen, setIsModalOpen] = useState(false)
 
     const addExcuse = (excuse: Excuse) => {
+        localStorage.setItem(
+            LOCAL_STORAGE_DATA_KEY,
+            JSON.stringify([...excuses, excuse]),
+        )
+
         setExcuses((prev) => [...prev, excuse])
     }
 
-    const clearExcuses = () => setExcuses([])
+    const clearExcuses = () => {
+        setExcuses([])
+        localStorage.setItem(LOCAL_STORAGE_DATA_KEY, JSON.stringify([]))
+    }
 
     return (
         <div className="mx-auto container p-4 flex flex-col gap-2">
@@ -38,21 +56,7 @@ export default function App() {
                         Clear
                     </Button>
                 </div>
-                <ExcuseTable
-                    excuses={[
-                        {
-                            Name: "Mark",
-                            Reason: "Late for work",
-                            ComplexityLevel: 5,
-                            Date: new Date().toLocaleDateString(),
-                            CreativityLevel: 4,
-                            Urgent: true,
-                            Comment: "",
-                            Text: "",
-                        },
-                        ...excuses,
-                    ]}
-                />
+                <ExcuseTable excuses={excuses} />
             </main>
         </div>
     )

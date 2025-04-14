@@ -7,7 +7,12 @@ export const keywords = {
         "I hope you're doing well",
         "I hope this message finds you well",
     ],
-    apologies: ["I am sorry for", "I apologize for", "My utmost apology for"],
+    apologies: [
+        "I am sorry for",
+        "I apologize for",
+        "My utmost apology for",
+        "My bad for",
+    ],
     nouns: [
         "my family",
         "my dog",
@@ -18,11 +23,28 @@ export const keywords = {
         "a random guy",
     ],
     verbs: [
-        {text: "sent me to", noun: ["Nicaragua", "Detroit", "A motel"]},
-        {text: "drobe me to", noun: ["China", "the U.S.", "Fart city"]},
+        { text: "sent me to", noun: ["Nicaragua", "Detroit", "A motel"] },
+        { text: "drobe me to", noun: ["China", "the U.S.", "Fart city"] },
     ],
     reasons: [
-        {text: "because", verb: ["I farted", "I said no", "I was a selfish little fuck", "skibidi toilet invaded the city"]},
-        {text: "cause", verb: ["I killed someone", "it was a sunny day"]}
+        {
+            text: "because",
+            verb: [
+                "I farted",
+                "I said no",
+                "I was a selfish little fuck",
+                "skibidi toilet invaded the city",
+                "tripped on a twig",
+            ],
+        },
+        {
+            text: "cause",
+            verb: [
+                "I killed someone",
+                "it was a sunny day",
+                "I robbed a bank",
+                "fell off a staircase",
+            ],
+        },
     ],
 }
