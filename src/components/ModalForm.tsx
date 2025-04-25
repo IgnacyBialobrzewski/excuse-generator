@@ -31,6 +31,14 @@ export function ModalForm({ isOpen, close, onSubmit }: Props) {
         Text: "",
     })
 
+    const handleSubmit = () => {
+        close()
+        onSubmit({
+            ...formData,
+            Text: generateExcuse(formData),
+        })
+    }
+
     return (
         <Modal
             opened={isOpen}
@@ -130,17 +138,7 @@ export function ModalForm({ isOpen, close, onSubmit }: Props) {
                         })
                     }
                 />
-                <Button
-                    onClick={() => {
-                        close()
-                        onSubmit({
-                            ...formData,
-                            Text: generateExcuse(formData),
-                        })
-                    }}
-                >
-                    Generate
-                </Button>
+                <Button onClick={handleSubmit}>Generate</Button>
             </div>
         </Modal>
     )

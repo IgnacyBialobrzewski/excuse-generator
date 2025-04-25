@@ -2,7 +2,12 @@ import { Badge, Button, Modal, Progress, Table, Textarea } from "@mantine/core"
 import { Excuse } from "../lib/Excuse"
 import { useState } from "react"
 
-export function ExcuseTable({ excuses }: { excuses: Excuse[] }) {
+type Props = {
+    excuses: Excuse[]
+    deleteExcuse: (idx: number) => void
+}
+
+export function ExcuseTable({ excuses, deleteExcuse }: Props) {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [modalText, setModalText] = useState("")
 
@@ -66,6 +71,11 @@ export function ExcuseTable({ excuses }: { excuses: Excuse[] }) {
                         <Table.Td>
                             <Button onClick={() => openModalWithText(v.Text)}>
                                 Show
+                            </Button>
+                        </Table.Td>
+                        <Table.Td>
+                            <Button onClick={() => deleteExcuse(i)} color="red">
+                                Delete
                             </Button>
                         </Table.Td>
                     </Table.Tr>

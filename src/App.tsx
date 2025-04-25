@@ -8,6 +8,7 @@ import "./App.css"
 const LOCAL_STORAGE_DATA_KEY = "excuse_generator_data"
 
 export default function App() {
+    const [isModalOpen, setIsModalOpen] = useState(false)
     const [excuses, setExcuses] = useState<Excuse[]>(() => {
         const data = localStorage.getItem(LOCAL_STORAGE_DATA_KEY)
 
@@ -17,7 +18,6 @@ export default function App() {
 
         return []
     })
-    const [isModalOpen, setIsModalOpen] = useState(false)
 
     const addExcuse = (excuse: Excuse) => {
         localStorage.setItem(
@@ -31,6 +31,19 @@ export default function App() {
     const clearExcuses = () => {
         setExcuses([])
         localStorage.setItem(LOCAL_STORAGE_DATA_KEY, JSON.stringify([]))
+    }
+
+    const deleteExcuse = (idx: number) => {
+        setExcuses((prev) => {
+            const filtered = prev.filter((_, i) => i != idx)
+
+            localStorage.setItem(
+                LOCAL_STORAGE_DATA_KEY,
+                JSON.stringify(filtered),
+            )
+
+            return filtered
+        })
     }
 
     return (
@@ -56,7 +69,7 @@ export default function App() {
                         Clear
                     </Button>
                 </div>
-                <ExcuseTable excuses={excuses} />
+                <ExcuseTable excuses={excuses} deleteExcuse={deleteExcuse} />
             </main>
         </div>
     )
